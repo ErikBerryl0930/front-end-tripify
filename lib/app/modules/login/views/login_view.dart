@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+
 import '../../register/views/register_view.dart';
 import '../controllers/login_controller.dart';
 
@@ -149,7 +150,10 @@ class LoginView extends GetView<LoginController> {
                       ),
                       onPressed: () {
                         controller.checkLogin();
+                       
+                        
                       },
+                      
                     ),
                   ),
                   const SizedBox(
@@ -157,6 +161,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                 ],
               ),
+              
             ),
           ),
         ),
