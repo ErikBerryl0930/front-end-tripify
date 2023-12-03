@@ -7,6 +7,16 @@ import 'package:tripify_app/functions/api_url.dart';
 import 'package:tripify_app/model/user.dart';
 import 'package:tripify_app/provider/user_provider.dart';
 
+//function register
+Future<http.Response> postApiRegister(Map<String, String> data) async {
+  var response = await http.post(
+    Uri.parse('${ApiUrl.apiURL}/users'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode(data),
+  );
+  return response;
+}
+
 //function login
 Future<http.Response> postApiLogin(Map<String, String> data) async {
   var response = await http.post(

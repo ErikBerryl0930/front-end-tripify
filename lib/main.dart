@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:tripify_app/provider/user_provider.dart';
 
+import 'functions/navigation_services.dart';
 import 'views/login/login_screen.dart';
 import 'views/onboard/onboard_screen.dart';
 import 'views/splash/splash_screen.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      navigatorKey: NavigationServices.navigatorKey,
       home: const Splash(),
     );
   }

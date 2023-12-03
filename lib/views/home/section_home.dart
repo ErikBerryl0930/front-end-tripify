@@ -26,7 +26,6 @@ class _SectionHomeState extends State<SectionHome> {
   Future<void> fetchData() async {
     try {
       List<Category> fetchedCategories = await getCategories();
-
       setState(() {
         categories = fetchedCategories;
       });
@@ -101,7 +100,7 @@ class _SectionHomeState extends State<SectionHome> {
                         child: Center(
                           child: Text(
                             categories[index].categoryName,
-                            style: const TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.black),
                           ),
                         ),
                       ),
