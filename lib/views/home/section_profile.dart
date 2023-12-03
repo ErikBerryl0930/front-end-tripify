@@ -68,19 +68,19 @@ class _SectionProfileState extends State<SectionProfile> {
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {},
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.list_alt_rounded,
-                        size: MediaQuery.of(context).size.width * 0.08),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20.0),
-                      child: Text('Transaction History'),
-                    )
-                  ],
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {},
+              //   child: Row(
+              //     children: <Widget>[
+              //       Icon(Icons.list_alt_rounded,
+              //           size: MediaQuery.of(context).size.width * 0.08),
+              //       const Padding(
+              //         padding: EdgeInsets.only(left: 20.0),
+              //         child: Text('Transaction History'),
+              //       )
+              //     ],
+              //   ),
+              // ),
               GestureDetector(
                 onTap: () {
                   AwesomeDialog(

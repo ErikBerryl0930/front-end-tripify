@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tripify_app/functions/api_url.dart';
 
 import '../../functions/function_get.dart';
 import '../../model/destination.dart';
@@ -34,6 +35,8 @@ class _SectionDestinationState extends State<SectionDestination> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: null,
       body: SafeArea(
@@ -63,20 +66,20 @@ class _SectionDestinationState extends State<SectionDestination> {
                   color: Colors.white,
                   elevation: 5,
                   child: Container(
-                    height: 100,
+                    height: 0.13 * height,
                     padding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                     child: Row(
                       children: [
                         Container(
                           margin: const EdgeInsets.only(right: 12),
-                          height: 80,
-                          width: 80,
+                          height: 0.1 * height,
+                          width: 200 * width / 720,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            image: const DecorationImage(
+                            image: DecorationImage(
                               image: NetworkImage(
-                                  'https://images.unsplash.com/photo-1555899434-94d1368aa7af?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                                ApiUrl.imageURL + destinations[index].picture.split('/').last),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -88,38 +91,43 @@ class _SectionDestinationState extends State<SectionDestination> {
                             children: [
                               Row(
                                 // crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                // mainAxisAlignment:
+                                //     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(destinations[index].destinationName,
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black)),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.yellow,
-                                        size: 14,
-                                      ),
-                                      Text('category.rating'),
-                                    ],
-                                  ),
+                                  // untuk rating
+                                  // Row(
+                                  //   children: [
+                                  //     const Icon(
+                                  //       Icons.star,
+                                  //       color: Colors.yellow,
+                                  //       size: 14,
+                                  //     ),
+                                  //     Text(destinations[index].destinationName,
+                                  //         style: GoogleFonts.poppins(
+                                  //             fontWeight: FontWeight.bold,
+                                  //             color: Colors.black)),
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.location_on,
                                     color: Colors.grey,
                                   ),
                                   Text(destinations[index].region,
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w400,
-                                          color: Colors.black)),
+                                          color: Colors.grey)),
                                 ],
                               ),
                               Text(destinations[index].description,
+                                  overflow: TextOverflow.ellipsis,
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black)),

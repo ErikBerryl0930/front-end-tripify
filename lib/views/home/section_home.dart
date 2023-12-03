@@ -6,6 +6,10 @@ import 'package:tripify_app/provider/user_provider.dart';
 import 'package:tripify_app/model/user.dart';
 import 'package:tripify_app/model/category.dart';
 
+import '../../functions/api_url.dart';
+import '../../model/destination.dart';
+import '../detail/detail_screen.dart';
+
 class SectionHome extends StatefulWidget {
   const SectionHome({super.key});
 
@@ -14,13 +18,14 @@ class SectionHome extends StatefulWidget {
 }
 
 List<Category> categories = [];
+List<Destination> destinations = [];
 
 class _SectionHomeState extends State<SectionHome> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchData();
+    fetchDestination();
   }
 
   Future<void> fetchData() async {
@@ -28,6 +33,18 @@ class _SectionHomeState extends State<SectionHome> {
       List<Category> fetchedCategories = await getCategories();
       setState(() {
         categories = fetchedCategories;
+      });
+    } catch (e) {
+      print('Error fetching categories: $e');
+      // Handle the error, show a message to the user, etc.
+    }
+  }
+
+  Future<void> fetchDestination() async {
+    try {
+      List<Destination> fetchedDestinations = await getDestinations();
+      setState(() {
+        destinations = fetchedDestinations;
       });
     } catch (e) {
       print('Error fetching categories: $e');
@@ -119,43 +136,61 @@ class _SectionHomeState extends State<SectionHome> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Jumlah kolom dalam GridView
                   ),
-                  itemCount: 20, // Ganti dengan jumlah item dalam GridView
+                  itemCount: destinations
+                      .length, // Ganti dengan jumlah item dalam GridView
                   itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      elevation: 8,
-                      child: Container(
-                        color: Colors
-                            .white, // Ganti dengan warna atau widget yang sesuai
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.network(
-                              'https://images.unsplash.com/photo-1555899434-94d1368aa7af?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Ganti dengan URL gambar yang diinginkan
-                              // width: 100, // Lebar gambar
-                              height: 100, // Tinggi gambar
-                              fit: BoxFit.cover, // Atur metode tampilan gambar
-                            ),
-                            // const SizedBox(
-                            //     height: 8), // Spasi antara gambar dan teks
-                            Row(
-                              children: [
-                                Text(
-                                  'Nama $index',
-                                  style: const TextStyle(color: Colors.black),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DetailScreen(),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        elevation: 8,
+                        child: Container(
+                          color: Colors.white,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.network(
+                                ApiUrl.imageURL +
+                                    destinations[index].picture.split('/').last,
+                                width: double.infinity, // Lebar gambar
+                                height: 0.12 * height, // Tinggi gambar
+                                fit:
+                                    BoxFit.cover, // A2ur metode tampilan gambar
+                              ),
+                              // const SizedBox(
+                              //     height: 8), // Spasi antara gambar dan teks
+                              Row(
+                                children: [
+                                  Text(
+                                    destinations[index].destinationName,
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                ]
+                                    .map((widget) => Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 5.0, right: 5.0),
+                                          child: widget,
+                                        ))
+                                    .toList(),
+                              ),
+                              Row(children: [
+                                const Icon(
+                                  Icons.location_on,
+                                  color: Colors.grey,
                                 ),
-                              ],
-                            ),
-                            Row(children: [
-                              const Icon(
-                                Icons.location_on,
-                                color: Colors.grey,
-                              ),
-                              Text(
-                                'Lokasi $index',
-                                style: const TextStyle(color: Colors.grey),
-                              ),
-                            ]),
-                          ],
+                                Text(
+                                  destinations[index].region,
+                                  style: const TextStyle(color: Colors.grey),
+                                ),
+                              ]),
+                            ],
+                          ),
                         ),
                       ),
                     );
