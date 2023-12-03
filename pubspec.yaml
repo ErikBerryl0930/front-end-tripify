@@ -1,22 +1,28 @@
 name: tripify_app
+description: A travel app aplication to explore the beauty of Indonesia.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
 version: 1.0.0+1
-publish_to: none
-description: A new Flutter project.
+
 environment:
   sdk: ">=3.1.5 <4.0.0"
 
 dependencies:
-  cupertino_icons: ^1.0.2
-  get: 4.6.6
-  get_storage: ^2.1.1
-  flutter_svg: ^2.0.9
   flutter:
     sdk: flutter
+  cupertino_icons: ^1.0.2
+  flutter_svg: ^2.0.9
+  google_fonts: ^6.1.0
+  shared_preferences: ^2.2.2
+  after_layout: ^1.2.0
+  awesome_dialog: ^3.1.0
+  http: ^1.1.0
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
@@ -24,8 +30,3 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-
-  fonts:
-    - family: DancingScript
-      fonts:
-        - asset: fonts/DancingScript-VariableFont_wght.ttf
