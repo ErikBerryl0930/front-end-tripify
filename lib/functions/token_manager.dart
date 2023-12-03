@@ -8,6 +8,7 @@ class TokenManager {
   static String? extractTokenFromResponse(String jsonResponse) {
     try {
       Map<String, dynamic> parsedJson = json.decode(jsonResponse);
+      print(parsedJson['barier_token']);
       return parsedJson['barier_token'];
     } catch (e) {
       print('Error extracting token: $e');
@@ -19,5 +20,10 @@ class TokenManager {
   static Future<void> saveToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tokenKey, token);
+  }
+
+  static Future<String?> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_tokenKey);
   }
 }

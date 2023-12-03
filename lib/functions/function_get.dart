@@ -3,18 +3,25 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:tripify_app/functions/api_url.dart';
 import 'package:tripify_app/model/category.dart';
+import 'package:tripify_app/model/user.dart';
 
 import '../model/destination.dart';
 
-Future<http.Response> getUserData(String token) async {
-  var response = await http.get(
+Future<http.Response> getUserData(String? token) async {
+  final response = await http.get(
     Uri.parse('${ApiUrl.apiURL}/users/account'),
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token'
+      'Authorization': 'Bearer $token',
     },
   );
-  return response;
+
+  if (response.statusCode == 200) {
+    // print(response.body);
+    return response;
+  } else {
+    throw Exception('Failed to load user data');
+  }
 }
 
 Future<List<Category>> getCategories() async {

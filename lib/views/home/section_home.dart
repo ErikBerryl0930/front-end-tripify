@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:tripify_app/functions/function_get.dart';
-import 'package:tripify_app/provider/user_provider.dart';
-import 'package:tripify_app/model/user.dart';
+import 'package:tripify_app/functions/token_manager.dart';
+import 'package:http/http.dart' as http;
 import 'package:tripify_app/model/category.dart';
+import 'package:tripify_app/model/user.dart';
 
 class SectionHome extends StatefulWidget {
   const SectionHome({super.key});
@@ -14,6 +16,7 @@ class SectionHome extends StatefulWidget {
 }
 
 List<Category> categories = [];
+UserData? _user;
 
 class _SectionHomeState extends State<SectionHome> {
   @override
@@ -21,6 +24,7 @@ class _SectionHomeState extends State<SectionHome> {
     // TODO: implement initState
     super.initState();
     fetchData();
+    fetchUserData();
   }
 
   Future<void> fetchData() async {
@@ -35,14 +39,28 @@ class _SectionHomeState extends State<SectionHome> {
     }
   }
 
+  Future<void> fetchUserData() async {
+    try {
+      String? token = await TokenManager.getToken();
+
+      http.Response response = await getUserData(token);
+      print(response.body);
+      final user = UserData.fromJson(json.decode(response.body));
+      print(user.username);
+      setState(() {
+        _user = user;
+      });
+    } catch (e) {
+      print('Error fetch $e');
+    }
+  }
+
   int selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    UserProvider userProvider = Provider.of<UserProvider>(context);
-    User? user = userProvider.user;
 
     return Scaffold(
         appBar: null,
@@ -56,7 +74,7 @@ class _SectionHomeState extends State<SectionHome> {
               Row(
                 children: <Widget>[
                   Text(
-                    'Hi, ${user?.username}',
+                    'Hi, ${_user?.username}',
                     style: GoogleFonts.poppins(
                         fontSize: 35 * width / 720,
                         fontWeight: FontWeight.bold,
