@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 import '../../customs/button_auth.dart';
+import '../../functions/navigation_services.dart';
 import '../../functions/function_post.dart';
 import '../login/login_screen.dart';
 
@@ -29,13 +30,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       http.Response response = await postApiRegister(data);
 
       if (response.statusCode == 201) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
-        print('Data: $data'); // Mencetak data yang akan dikirim ke API
-        print(
-            'Response: ${response.statusCode} ${response.body}'); // Mencetak respon dari API
+        await NavigationServices.pushReplacement(const LoginScreen());
+        // print('Data: $data'); // Mencetak data yang akan dikirim ke API
+        // print(
+        //     'Response: ${response.statusCode} ${response.body}'); // Mencetak respon dari API
       }
     } catch (e) {
       print('Error: $e');

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 import '../../customs/button_auth.dart';
+import '../../functions/navigation_services.dart';
 import '../../functions/function_post.dart';
 import '../home/home_screen.dart';
 import '../register/register_screen.dart';
@@ -26,22 +27,10 @@ class _LoginScreenState extends State<LoginScreen> {
       http.Response response = await postApiLogin(data);
 
       if (response.statusCode == 200) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-        print('Data: $data'); // Mencetak data yang akan dikirim ke API
-        print(
-            'Response: ${response.statusCode} ${response.body}'); // Mencetak respon dari API
+        await NavigationServices.pushReplacement(const HomeScreen());
       }
     } catch (e) {
       print('Error: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: $e'),
-          duration: Duration(seconds: 2), // Durasi tampilan snackbar
-        ),
-      );
     }
   }
 

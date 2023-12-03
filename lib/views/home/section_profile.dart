@@ -92,13 +92,14 @@ class _SectionProfileState extends State<SectionProfile> {
                       child: Center(
                         child: Text(
                           'Are you sure want to logout?',
-                          style: GoogleFonts.poppins(fontStyle: FontStyle.italic),
+                          style: GoogleFonts.poppins(),
                         ),
                       ),
                     ),
                     title: 'This is Ignored',
                     desc: 'This is also Ignored',
                     btnOkOnPress: () {},
+                    btnCancelOnPress: () {},
                   ).show();
                 },
                 child: Row(
