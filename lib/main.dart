@@ -3,13 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:after_layout/after_layout.dart';
+import 'package:tripify_app/provider/user_provider.dart';
 
 import 'views/login/login_screen.dart';
 import 'views/onboard/onboard_screen.dart';
 import 'views/splash/splash_screen.dart';
 
+import 'package:provider/provider.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (contex) => UserProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

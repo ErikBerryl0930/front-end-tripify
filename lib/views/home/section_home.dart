@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:tripify_app/functions/function_get.dart';
+import 'package:tripify_app/provider/user_provider.dart';
+import 'package:tripify_app/model/user.dart';
+import 'package:tripify_app/model/category.dart';
 
 class SectionHome extends StatefulWidget {
   const SectionHome({super.key});
@@ -8,11 +13,35 @@ class SectionHome extends StatefulWidget {
   State<SectionHome> createState() => _SectionHomeState();
 }
 
+List<Category> categories = [];
+
 class _SectionHomeState extends State<SectionHome> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      List<Category> fetchedCategories = await getCategories();
+      setState(() {
+        categories = fetchedCategories;
+      });
+    } catch (e) {
+      print('Error fetching categories: $e');
+      // Handle the error, show a message to the user, etc.
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+    User? user = userProvider.user;
+
     return Scaffold(
         appBar: null,
         body: Container(
@@ -25,7 +54,7 @@ class _SectionHomeState extends State<SectionHome> {
               Row(
                 children: <Widget>[
                   Text(
-                    'Hi, Username!',
+                    'Hi, ${user?.username}',
                     style: GoogleFonts.poppins(
                         fontSize: 35 * width / 720,
                         fontWeight: FontWeight.bold,
@@ -50,7 +79,8 @@ class _SectionHomeState extends State<SectionHome> {
                 height: 0.05 * height, // Tinggi dari ListView horizontal
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 10, // Ganti dengan jumlah item dalam ListView
+                  itemCount: categories
+                      .length, // Ganti dengan jumlah item dalam ListView
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -65,7 +95,7 @@ class _SectionHomeState extends State<SectionHome> {
                         ),
                         child: Center(
                           child: Text(
-                            'Item $index',
+                            categories[index].name,
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),

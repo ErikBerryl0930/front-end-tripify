@@ -1,7 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:tripify_app/functions/api_url.dart';
+import 'package:tripify_app/model/user.dart';
+import 'package:tripify_app/provider/user_provider.dart';
 
 //function login
 Future<http.Response> postApiLogin(Map<String, String> data) async {

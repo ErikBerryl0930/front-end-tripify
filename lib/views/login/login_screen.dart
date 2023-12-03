@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:tripify_app/provider/user_provider.dart';
 
 import '../../customs/button_auth.dart';
 import '../../functions/function_post.dart';
@@ -21,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _postLogin(String email, String password) async {
     try {
+      UserProvider userProvider =
+          Provider.of<UserProvider>(context, listen: false);
       Map<String, String> data = {'email': email, 'password': password};
       http.Response response = await postApiLogin(data);
 
@@ -29,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
           context,
           MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
+        userProvider.updateUserFromResponse(data, context);
         print('Data: $data'); // Mencetak data yang akan dikirim ke API
         print(
             'Response: ${response.statusCode} ${response.body}'); // Mencetak respon dari API
