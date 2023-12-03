@@ -1,0 +1,125 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class SectionProfile extends StatefulWidget {
+  const SectionProfile({super.key});
+
+  @override
+  State<SectionProfile> createState() => _SectionProfileState();
+}
+
+class _SectionProfileState extends State<SectionProfile> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: null,
+      body: Container(
+          padding: const EdgeInsets.only(left: 30, right: 30),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: MediaQuery.of(context).size.width * 0.08,
+                    backgroundImage: const NetworkImage(
+                        'https://via.placeholder.com/73x73'), // replace with your image url
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: Column(
+                      children: <Widget>[
+                        Text('Ini Nama Panjang'),
+                        Text('Ini Email Panjang')
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.01,
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.person,
+                        size: MediaQuery.of(context).size.width * 0.08),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: Text('Edit Profile'),
+                    )
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.settings,
+                        size: MediaQuery.of(context).size.width * 0.08),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: Text('Settings'),
+                    )
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.list_alt_rounded,
+                        size: MediaQuery.of(context).size.width * 0.08),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: Text('Transaction History'),
+                    )
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  AwesomeDialog(
+                    context: context,
+                    animType: AnimType.scale,
+                    dialogType: DialogType.warning,
+                    body: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          'Are you sure want to logout?',
+                          style: GoogleFonts.poppins(fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                    ),
+                    title: 'This is Ignored',
+                    desc: 'This is also Ignored',
+                    btnOkOnPress: () {},
+                  ).show();
+                },
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.logout,
+                        size: MediaQuery.of(context).size.width * 0.08),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: Text('Logout'),
+                    )
+                  ],
+                ),
+              ),
+              const Text('Version 1.0.0')
+            ]
+                .map((widget) => Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: widget,
+                    ))
+                .toList(),
+          )),
+    );
+  }
+}
