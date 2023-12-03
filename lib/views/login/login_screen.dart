@@ -31,14 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
       http.Response response = await postApiLogin(data);
 
       if (response.statusCode == 200) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-        userProvider.updateUserFromResponse(data, context);
-        print('Data: $data'); // Mencetak data yang akan dikirim ke API
-        print(
-            'Response: ${response.statusCode} ${response.body}'); // Mencetak respon dari API
+        // userProvider.updateUserFromResponse(data, context);
+        // print('Data: $data'); // Mencetak data yang akan dikirim ke API
+        // print(
+        //     'Response: ${response.statusCode} ${response.body}'); // Mencetak respon dari API
         await NavigationServices.pushReplacement(const HomeScreen());
       }
     } catch (e) {
