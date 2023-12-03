@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
           context,
           MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
-        userProvider.updateUserFromResponse(data, context);
+        // userProvider.updateUserFromResponse(data, context);
         print('Data: $data'); // Mencetak data yang akan dikirim ke API
         print(
             'Response: ${response.statusCode} ${response.body}'); // Mencetak respon dari API

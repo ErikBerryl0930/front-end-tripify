@@ -16,9 +16,9 @@ Future<http.Response> getUserData(String token) async {
 }
 
 Future<List<Category>> getCategories() async {
-  var response = await http.get(Uri.parse('${ApiUrl.apiURL}/categories'));
+  var response = await http.get(Uri.parse('${ApiUrl.apiURL}/categories/'));
 
-  print(response.body);
+  print("test");
   if (response.statusCode == 200) {
     try {
       List<dynamic> data = json.decode(response.body);

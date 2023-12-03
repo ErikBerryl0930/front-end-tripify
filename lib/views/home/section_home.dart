@@ -26,6 +26,7 @@ class _SectionHomeState extends State<SectionHome> {
   Future<void> fetchData() async {
     try {
       List<Category> fetchedCategories = await getCategories();
+
       setState(() {
         categories = fetchedCategories;
       });
@@ -34,6 +35,8 @@ class _SectionHomeState extends State<SectionHome> {
       // Handle the error, show a message to the user, etc.
     }
   }
+
+  int selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -85,17 +88,19 @@ class _SectionHomeState extends State<SectionHome> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Container(
-                        width: 0.1 *
+                        width: 0.2 *
                             width, // Lebar dari setiap item dalam ListView
                         decoration: BoxDecoration(
-                          color: Colors
-                              .green, // Ganti dengan warna atau widget yang sesuai
+                          color: selectedIndex == index
+                              ? Colors.green.shade800
+                              : Colors.green,
+                          // Ganti dengan warna atau widget yang sesuai
                           borderRadius: BorderRadius.circular(
                               50.0), // Mengatur sudut menjadi bulat
                         ),
                         child: Center(
                           child: Text(
-                            categories[index].name,
+                            categories[index].categoryName,
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
