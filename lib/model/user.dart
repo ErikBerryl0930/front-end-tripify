@@ -1,16 +1,22 @@
-class User {
-  final int id;
-  final String username;
+class UserData {
+  final String? username;
   final String email;
+  final String password;
   final String role;
-  final String token; // Store the token for future requests
-  // Add other user properties as needed
 
-  User({
-    required this.id,
-    required this.username,
+  UserData({
+    this.username,
     required this.email,
+    required this.password,
     required this.role,
-    required this.token,
   });
+
+  factory UserData.fromJson(Map<String, dynamic> json) {
+    return UserData(
+      username: json['username'],
+      email: json['email'] ?? '',
+      password: json['password'] ?? '',
+      role: json['role'] ?? '',
+    );
+  }
 }
