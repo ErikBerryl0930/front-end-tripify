@@ -60,16 +60,28 @@ class _SectionProfileState extends State<SectionProfile> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  CircleAvatar(
-                    radius: MediaQuery.of(context).size.width * 0.08,
-                    backgroundImage: const NetworkImage(
-                        'https://via.placeholder.com/73x73'), // replace with your image url
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.16,
+                    height: MediaQuery.of(context).size.width * 0.16,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.grey, // Warna border
+                        width: 3, // Lebar border
+                      ),
+                    ),
+                    child: CircleAvatar(
+                      radius: MediaQuery.of(context).size.width * 0.08,
+                      backgroundImage:
+                          NetworkImage('${_user?.profile.profileImage}'),
+                    ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.only(left: 20.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Ini Nama Panjang'),
+                        Text('${_user?.username}'),
                         Text('${_user?.email}')
                       ],
                     ),
