@@ -22,3 +22,13 @@ Future<http.Response> postApiLogin(Map<String, String> data) async {
   );
   return response;
 }
+
+//function change password
+Future<http.Response> postApiChangePassword(Map<String, String> data) async {
+  var response = await http.post(
+    Uri.parse('${ApiUrl.apiURL}/users/changepassword'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode(data),
+  );
+  return response;
+}

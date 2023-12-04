@@ -26,7 +26,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _postRegister(String username, String email, String password,
       String confPassword) async {
     try {
-      Map<String, String> data = {'username': username,'email': email, 'password': password, 'confPassword': confPassword};
+      Map<String, String> data = {
+        'username': username,
+        'email': email,
+        'password': password,
+        'confPassword': confPassword
+      };
       http.Response response = await postApiRegister(data);
 
       if (response.statusCode == 201) {
@@ -45,6 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Stack(children: [
         Positioned(
           bottom: 0,
@@ -148,8 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onPressed: () {
                       setState(() {
                         // Ubah status ketika ikon mata ditekan
-                        _isObscureConfPassword =
-                            !_isObscureConfPassword;
+                        _isObscureConfPassword = !_isObscureConfPassword;
                       });
                     },
                   ),
@@ -205,6 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           _confPasswordController.text);
                     }
                   }),
+              SizedBox(height: 0.01 * height),
             ]
                 .map((widget) => Padding(
                       padding: const EdgeInsets.only(

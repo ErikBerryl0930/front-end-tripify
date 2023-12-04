@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:tripify_app/model/user.dart';
 import 'package:tripify_app/views/login/login_screen.dart';
 import '../../functions/function_get.dart';
+import '../profile/change_password_screen.dart';
 
 class SectionProfile extends StatefulWidget {
   const SectionProfile({super.key});
@@ -105,7 +106,9 @@ class _SectionProfileState extends State<SectionProfile> {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  NavigationServices.push(const ChangePasswordScreen());
+                },
                 child: Row(
                   children: <Widget>[
                     Icon(Icons.settings,

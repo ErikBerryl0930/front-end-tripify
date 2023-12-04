@@ -9,4 +9,10 @@ class NavigationServices {
       MaterialPageRoute(builder: (context) => page),
     );
   }
+  
+  static Future push(Widget page) async {
+    await navigatorKey.currentState?.push(
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
 }
