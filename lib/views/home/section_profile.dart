@@ -65,10 +65,13 @@ class _SectionProfileState extends State<SectionProfile> {
                     backgroundImage: const NetworkImage(
                         'https://via.placeholder.com/73x73'), // replace with your image url
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 20.0),
                     child: Column(
-                      children: <Widget>[Text('Ini Nama Panjang'), Text('')],
+                      children: <Widget>[
+                        Text('Ini Nama Panjang'),
+                        Text('${_user?.email}')
+                      ],
                     ),
                   )
                 ],
