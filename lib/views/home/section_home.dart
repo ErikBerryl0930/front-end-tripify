@@ -42,16 +42,17 @@ class _SectionHomeState extends State<SectionHome> {
   Future<void> fetchUserData() async {
     try {
       String? token = await TokenManager.getToken();
-
       http.Response response = await getUserData(token);
-      print(response.body);
+
+      print('Response Body: ${response.body}');
+
       final user = UserData.fromJson(json.decode(response.body));
-      print(user.username);
-      setState(() {
-        _user = user;
-      });
+
+      print('User Data: $user');
+      _user = user;
+      setState(() {});
     } catch (e) {
-      print('Error fetch $e');
+      print('Error fetching user data: $e');
     }
   }
 

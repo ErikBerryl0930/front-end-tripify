@@ -13,10 +13,15 @@ class UserData {
 
   factory UserData.fromJson(Map<String, dynamic> json) {
     return UserData(
-      username: json['username'],
-      email: json['email'] ?? '',
-      password: json['password'] ?? '',
-      role: json['role'] ?? '',
+      username: json['user']['username'],
+      email: json['user']['email'] ?? '',
+      password: json['user']['password'] ?? '',
+      role: json['user']['role'] ?? '',
     );
+  }
+
+  @override
+  String toString() {
+    return 'UserData(username: $username, email: $email, role: $role)';
   }
 }
