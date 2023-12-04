@@ -26,4 +26,9 @@ class TokenManager {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(_tokenKey);
   }
+
+  static Future<void> clearToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_tokenKey);
+  }
 }
