@@ -17,7 +17,7 @@ Future<http.Response> getUserData(String? token) async {
   );
 
   if (response.statusCode == 200) {
-    // print(response.body);
+    print(response.body);
     return response;
   } else {
     throw Exception('Failed to load user data');
@@ -75,7 +75,8 @@ Future<List<Destination>> getDestinations() async {
 
 // function get destination info
 Future<List<Destination>> getDestinationInfo() async {
-  var response = await http.get(Uri.parse('${ApiUrl.apiURL}/destinations/information/'));
+  var response =
+      await http.get(Uri.parse('${ApiUrl.apiURL}/destinations/information/'));
 
   print(response.body);
   if (response.statusCode == 200) {
