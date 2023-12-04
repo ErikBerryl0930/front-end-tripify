@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tripify_app/views/home/section_destination.dart';
 import 'package:tripify_app/views/home/section_home.dart';
 import 'package:tripify_app/views/home/section_profile.dart';
+import 'package:tripify_app/views/home/section_transaction.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,7 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     SectionHome(),
     SectionDestination(),
-    Text('Profile'),
+    // Text('Profile'),
+    SectionTransaction(),
     SectionProfile(),
   ];
 
@@ -47,8 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Destination',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorite',
+            icon: Icon(Icons.list_alt_rounded),
+            label: 'Transaction',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

@@ -1,8 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DetailScreen extends StatelessWidget {
+import '../../functions/function_get.dart';
+import '../../model/destination.dart';
+
+class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key});
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+List<Destination> destinations = [];
+
+class _DetailScreenState extends State<DetailScreen> {
+  @override
+  void initState() {
+    super.initState();
+    fetchDestinationInfo();
+  }
+
+  Future<void> fetchDestinationInfo() async {
+    try {
+      List<Destination> fetchedDestinationInfo = await getDestinationInfo();
+      setState(() {
+        destinations = fetchedDestinationInfo;
+      });
+    } catch (e) {
+      print('Error fetching categories: $e');
+      // Handle the error, show a message to the user, etc.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

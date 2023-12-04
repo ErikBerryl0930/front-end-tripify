@@ -17,7 +17,7 @@ Future<http.Response> getUserData(String? token) async {
   );
 
   if (response.statusCode == 200) {
-    // print(response.body);
+    print(response.body);
     return response;
   } else {
     throw Exception('Failed to load user data');
@@ -60,6 +60,32 @@ Future<List<Destination>> getDestinations() async {
           data.map((destination) => Destination.fromJson(destination)).toList();
 
       return fetchedCategories;
+    } catch (e) {
+      print('Error parsing JSON: $e');
+      // Handle the error, return an empty list or throw an exception as needed
+      return [];
+    }
+  } else {
+    // If the server did not return a 200 OK response, print the response status
+    print('Failed to load categories. Status code: ${response.statusCode}');
+    // Handle the error, return an empty list or throw an exception as needed
+    return [];
+  }
+}
+
+// function get destination info
+Future<List<Destination>> getDestinationInfo() async {
+  var response =
+      await http.get(Uri.parse('${ApiUrl.apiURL}/destinations/information/'));
+
+  print(response.body);
+  if (response.statusCode == 200) {
+    try {
+      List<dynamic> data = json.decode(response.body);
+      List<Destination> fetchedDestinationInfo =
+          data.map((destination) => Destination.fromJson(destination)).toList();
+
+      return fetchedDestinationInfo;
     } catch (e) {
       print('Error parsing JSON: $e');
       // Handle the error, return an empty list or throw an exception as needed
