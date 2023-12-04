@@ -13,8 +13,11 @@ class SectionDestination extends StatefulWidget {
 }
 
 List<Destination> destinations = [];
+List<Destination> filteredDestinations = [];
 
 class _SectionDestinationState extends State<SectionDestination> {
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -26,11 +29,24 @@ class _SectionDestinationState extends State<SectionDestination> {
       List<Destination> fetchedDestinations = await getDestinations();
       setState(() {
         destinations = fetchedDestinations;
+        filteredDestinations = destinations;
       });
     } catch (e) {
       print('Error fetching categories: $e');
       // Handle the error, show a message to the user, etc.
     }
+  }
+
+  void filterDestinations(String query) {
+    List<Destination> filteredList = destinations.where((destination) {
+      return destination.destinationName
+          .toLowerCase()
+          .contains(query.toLowerCase());
+    }).toList();
+
+    setState(() {
+      filteredDestinations = filteredList;
+    });
   }
 
   @override
@@ -43,6 +59,7 @@ class _SectionDestinationState extends State<SectionDestination> {
           child: Column(
         children: [
           TextField(
+            controller: _searchController,
             decoration: InputDecoration(
               hintText: 'Search...',
               prefixIcon: const Icon(Icons.search),
@@ -51,15 +68,15 @@ class _SectionDestinationState extends State<SectionDestination> {
               ),
             ),
             onChanged: (value) {
-              // Lakukan sesuatu dengan nilai yang diubah
-              // Misalnya, filter hasil pencarian
+              filterDestinations(
+                  value); // Memanggil fungsi filter saat nilai berubah
             },
           ),
           ListView.builder(
             // padding: const EdgeInsets.symmetric(horizontal: 10),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: destinations.length,
+            itemCount: filteredDestinations.length,
             itemBuilder: (context, index) {
               return Column(children: [
                 Card(
@@ -78,8 +95,8 @@ class _SectionDestinationState extends State<SectionDestination> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             image: DecorationImage(
-                              image: NetworkImage(
-                                ApiUrl.imageURL + destinations[index].picture.split('/').last),
+                              image: NetworkImage(ApiUrl.imageURL +
+                                  destinations[index].picture.split('/').last),
                               fit: BoxFit.cover,
                             ),
                           ),

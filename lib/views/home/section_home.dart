@@ -21,6 +21,7 @@ class SectionHome extends StatefulWidget {
 
 List<Category> categories = [];
 UserData? _user;
+Profile? _profile;
 List<Destination> destinations = [];
 
 class _SectionHomeState extends State<SectionHome> {
@@ -92,17 +93,28 @@ class _SectionHomeState extends State<SectionHome> {
               Row(
                 children: <Widget>[
                   Text(
-                    'Hi, ${_user?.username}',
+                    'Hi, ${_user?.username}!',
                     style: GoogleFonts.poppins(
                         fontSize: 35 * width / 720,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                   ),
                   const Spacer(),
-                  CircleAvatar(
-                    radius: MediaQuery.of(context).size.width * 0.08,
-                    backgroundImage: const NetworkImage(
-                        'https://via.placeholder.com/73x73'), // replace with your image url
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.16,
+                    height: MediaQuery.of(context).size.width * 0.16,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.grey, // Warna border
+                        width: 3, // Lebar border
+                      ),
+                    ),
+                    child: CircleAvatar(
+                      radius: MediaQuery.of(context).size.width * 0.08,
+                      backgroundImage:
+                          NetworkImage('${_user?.profile.profileImage}'),
+                    ),
                   ),
                 ],
               ),
