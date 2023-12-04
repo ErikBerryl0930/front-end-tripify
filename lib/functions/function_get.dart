@@ -6,6 +6,7 @@ import 'package:tripify_app/model/category.dart';
 import 'package:tripify_app/model/user.dart';
 
 import '../model/destination.dart';
+import '../model/transaction.dart';
 
 Future<http.Response> getUserData(String? token) async {
   final response = await http.get(
@@ -95,6 +96,34 @@ Future<List<Destination>> getDestinationInfo() async {
     // If the server did not return a 200 OK response, print the response status
     print('Failed to load categories. Status code: ${response.statusCode}');
     // Handle the error, return an empty list or throw an exception as needed
+    return [];
+  }
+}
+
+// function get transactions
+Future<List<Transaction>> getTransactions(String? token) async {
+  final response = await http.get(
+    Uri.parse('${ApiUrl.apiURL}/transactions'),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+
+  print(response.body);
+  if (response.statusCode == 200) {
+    try {
+      List<dynamic> data = json.decode(response.body);
+      List<Transaction> fetchedTransactions =
+          data.map((transaction) => Transaction.fromJson(transaction)).toList();
+
+      return fetchedTransactions;
+    } catch (e) {
+      print('Error parsing JSON: $e');
+      return [];
+    }
+  } else {
+    print('Failed to load categories. Status code: ${response.statusCode}');
     return [];
   }
 }
