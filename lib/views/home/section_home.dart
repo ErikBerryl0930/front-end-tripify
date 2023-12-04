@@ -22,6 +22,7 @@ class SectionHome extends StatefulWidget {
 List<Category> categories = [];
 UserData? _user;
 Profile? _profile;
+Destination? _destination;
 List<Destination> destinations = [];
 
 class _SectionHomeState extends State<SectionHome> {
@@ -71,6 +72,21 @@ class _SectionHomeState extends State<SectionHome> {
       print('Error fetching categories: $e');
       // Handle the error, show a message to the user, etc.
     }
+  }
+
+  void _navigateToDetails(int destinationId) async {
+    // Fetch destination details using the API function
+    http.Response response = await getDestinationInfo(destinationId);
+
+    final dest = Destination.fromJson(json.decode(response.body));
+    _destination = dest;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailScreen(destination: _destination),
+      ),
+    );
   }
 
   @override
@@ -173,12 +189,7 @@ class _SectionHomeState extends State<SectionHome> {
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const DetailScreen(),
-                          ),
-                        );
+                        _navigateToDetails(destinations[index].id);
                       },
                       child: Card(
                         elevation: 8,
