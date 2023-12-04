@@ -5,7 +5,8 @@ import '../../functions/function_get.dart';
 import '../../model/destination.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key});
+  const DetailScreen({super.key, this.destination});
+  final Destination? destination;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -17,23 +18,24 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    fetchDestinationInfo();
+    // fetchDestinationInfo();
   }
 
-  Future<void> fetchDestinationInfo() async {
-    try {
-      List<Destination> fetchedDestinationInfo = await getDestinationInfo();
-      setState(() {
-        destinations = fetchedDestinationInfo;
-      });
-    } catch (e) {
-      print('Error fetching categories: $e');
-      // Handle the error, show a message to the user, etc.
-    }
-  }
+  // Future<void> fetchDestinationInfo() async {
+  //   try {
+  //     List<Destination> fetchedDestinationInfo = await getDestinationInfo();
+  //     setState(() {
+  //       destinations = fetchedDestinationInfo;
+  //     });
+  //   } catch (e) {
+  //     print('Error fetching categories: $e');
+  //     // Handle the error, show a message to the user, etc.
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    Destination? destination = widget.destination;
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -65,7 +67,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Nama Destinasi',
+                      '${destination?.destinationName}',
                       style: GoogleFonts.poppins(
                         fontSize: 38 * width / 720,
                         fontWeight: FontWeight.bold,
@@ -79,7 +81,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           color: Colors.grey,
                         ),
                         Text(
-                          'Lokasi',
+                          '${destination?.region}',
                           style: GoogleFonts.poppins(
                             fontSize: 25 * width / 720,
                             fontWeight: FontWeight.bold,
@@ -89,7 +91,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       ],
                     ),
                     Text(
-                      'Deskripsi',
+                      '${destination?.description}',
                       style: GoogleFonts.poppins(
                         fontSize: 25 * width / 720,
                         fontWeight: FontWeight.w600,
@@ -97,7 +99,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                     ),
                     Text(
-                      'Transport Recommend',
+                      '${destination?.transportRecomendation}',
                       style: GoogleFonts.poppins(
                         fontSize: 25 * width / 720,
                         fontWeight: FontWeight.w600,
