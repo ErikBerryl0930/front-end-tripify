@@ -18,20 +18,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    // fetchDestinationInfo();
   }
-
-  // Future<void> fetchDestinationInfo() async {
-  //   try {
-  //     List<Destination> fetchedDestinationInfo = await getDestinationInfo();
-  //     setState(() {
-  //       destinations = fetchedDestinationInfo;
-  //     });
-  //   } catch (e) {
-  //     print('Error fetching categories: $e');
-  //     // Handle the error, show a message to the user, etc.
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

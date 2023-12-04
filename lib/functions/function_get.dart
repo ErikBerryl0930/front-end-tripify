@@ -75,10 +75,8 @@ Future<List<Destination>> getDestinations() async {
 
 // function get destination info
 Future<http.Response> getDestinationInfo(int id) async {
-  final Map<String, dynamic> params = {'id': id};
-  var response = await http.get(
-      Uri.parse('${ApiUrl.apiURL}/destinations/information/')
-          .replace(queryParameters: params));
+  var response = await http
+      .get(Uri.parse('${ApiUrl.apiURL}/destinations/information/$id'));
 
   print(response.body);
   if (response.statusCode == 200) {
