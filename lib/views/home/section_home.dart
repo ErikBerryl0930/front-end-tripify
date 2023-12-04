@@ -9,6 +9,7 @@ import 'package:tripify_app/model/category.dart';
 import 'package:tripify_app/model/user.dart';
 
 import '../../functions/api_url.dart';
+import '../../functions/navigation_services.dart';
 import '../../model/destination.dart';
 import '../detail/detail_screen.dart';
 
@@ -81,12 +82,7 @@ class _SectionHomeState extends State<SectionHome> {
     final dest = Destination.fromJson(json.decode(response.body));
     _destination = dest;
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DetailScreen(destination: _destination),
-      ),
-    );
+    NavigationServices.push(DetailScreen(destination: _destination));
   }
 
   @override

@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 import '../../functions/api_url.dart';
 import '../../functions/function_get.dart';
+import '../../functions/navigation_services.dart';
 import '../../model/destination.dart';
+import '../detail/detail_screen.dart';
 
 class SectionDestination extends StatefulWidget {
   const SectionDestination({super.key});
@@ -15,6 +20,7 @@ class SectionDestination extends StatefulWidget {
 class _SectionDestinationState extends State<SectionDestination> {
   List<Destination> destinations = [];
   List<Destination> filteredDestinations = [];
+  Destination? _destination;
   bool isLoading = true;
   final TextEditingController _searchController = TextEditingController();
 
@@ -52,6 +58,16 @@ class _SectionDestinationState extends State<SectionDestination> {
     setState(() {
       filteredDestinations = filteredList;
     });
+  }
+
+  void _navigateToDetails(int destinationId) async {
+    // Fetch destination details using the API function
+    http.Response response = await getDestinationInfo(destinationId);
+
+    final dest = Destination.fromJson(json.decode(response.body));
+    _destination = dest;
+
+    NavigationServices.push(DetailScreen(destination: _destination));
   }
 
   @override
@@ -98,7 +114,7 @@ class _SectionDestinationState extends State<SectionDestination> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      // Implementasi aksi ketika item diklik
+                      _navigateToDetails(destinations[index].id);
                     },
                     child: Card(
                       elevation: 5,

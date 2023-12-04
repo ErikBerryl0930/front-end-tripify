@@ -39,7 +39,7 @@ class _SectionTransactionState extends State<SectionTransaction> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF004C5C).withOpacity(0.5),
+        // backgroundColor: const Color(0xFF004C5C).withOpacity(0.5),
         title: Text(
           'Transaction',
           style: GoogleFonts.poppins(
@@ -52,20 +52,28 @@ class _SectionTransactionState extends State<SectionTransaction> {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          // Text(
-          //   'Transaction History',
-          //   style: GoogleFonts.poppins(
-          //       fontSize: 35 * width / 720,
-          //       fontWeight: FontWeight.bold,
-          //       color: Colors.black),
-          // ),
           ListView.builder(
             // padding: const EdgeInsets.symmetric(horizontal: 30),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: transactions.isNotEmpty ? transactions.length : 1,
             itemBuilder: (context, index) {
-              if (transactions.isNotEmpty) {
+              if (transactions.isEmpty) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 0.55 * height,
+                      child: Image.asset('assets/images/no_transaction.jpg',
+                          fit: BoxFit.cover),
+                    ),
+                    Text(
+                      'You have no transactions',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w700, color: Colors.grey),
+                    ),
+                  ],
+                );
+              } else {
                 return Card(
                   child: Container(
                     height: 200,
@@ -154,21 +162,6 @@ class _SectionTransactionState extends State<SectionTransaction> {
                       ],
                     ),
                   ),
-                );
-              } else {
-                return Column(
-                  children: [
-                    SizedBox(
-                      height: 0.55 * height,
-                      child: Image.asset('assets/images/no_transaction.jpg',
-                          fit: BoxFit.cover),
-                    ),
-                    Text(
-                      'You have no transactions',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w700, color: Colors.grey),
-                    ),
-                  ],
                 );
               }
             },

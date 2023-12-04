@@ -10,6 +10,7 @@ import 'package:tripify_app/model/user.dart';
 import 'package:tripify_app/views/login/login_screen.dart';
 import '../../functions/function_get.dart';
 import '../profile/change_password_screen.dart';
+import '../profile/edit_profile_screen.dart';
 
 class SectionProfile extends StatefulWidget {
   const SectionProfile({super.key});
@@ -93,7 +94,9 @@ class _SectionProfileState extends State<SectionProfile> {
                 height: MediaQuery.of(context).size.height * 0.01,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  NavigationServices.push(const EditProfileScreen());
+                },
                 child: Row(
                   children: <Widget>[
                     Icon(Icons.person,
@@ -120,19 +123,6 @@ class _SectionProfileState extends State<SectionProfile> {
                   ],
                 ),
               ),
-              // GestureDetector(
-              //   onTap: () {},
-              //   child: Row(
-              //     children: <Widget>[
-              //       Icon(Icons.list_alt_rounded,
-              //           size: MediaQuery.of(context).size.width * 0.08),
-              //       const Padding(
-              //         padding: EdgeInsets.only(left: 20.0),
-              //         child: Text('Transaction History'),
-              //       )
-              //     ],
-              //   ),
-              // ),
               GestureDetector(
                 onTap: () {
                   AwesomeDialog(
