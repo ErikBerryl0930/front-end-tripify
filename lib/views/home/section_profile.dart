@@ -1,6 +1,14 @@
+import 'dart:convert';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tripify_app/functions/navigation_services.dart';
+import 'package:tripify_app/functions/token_manager.dart';
+import 'package:http/http.dart' as http;
+import 'package:tripify_app/model/user.dart';
+import 'package:tripify_app/views/login/login_screen.dart';
+import '../../functions/function_get.dart';
 
 class SectionProfile extends StatefulWidget {
   const SectionProfile({super.key});
@@ -9,7 +17,36 @@ class SectionProfile extends StatefulWidget {
   State<SectionProfile> createState() => _SectionProfileState();
 }
 
+UserData? _user;
+
 class _SectionProfileState extends State<SectionProfile> {
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      String? token = await TokenManager.getToken();
+      http.Response response = await getUserData(token);
+
+      final user = UserData.fromJson(json.decode(response.body));
+
+      setState(() {
+        _user = user;
+      });
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
+  Future<void> logout() async {
+    await TokenManager.clearToken();
+    // Add additional logout logic here, such as navigating to the login screen
+    await NavigationServices.pushReplacement(const LoginScreen());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,10 +68,7 @@ class _SectionProfileState extends State<SectionProfile> {
                   const Padding(
                     padding: EdgeInsets.only(left: 20.0),
                     child: Column(
-                      children: <Widget>[
-                        Text('Ini Nama Panjang'),
-                        Text('Ini Email Panjang')
-                      ],
+                      children: <Widget>[Text('Ini Nama Panjang'), Text('')],
                     ),
                   )
                 ],
@@ -98,7 +132,9 @@ class _SectionProfileState extends State<SectionProfile> {
                     ),
                     title: 'This is Ignored',
                     desc: 'This is also Ignored',
-                    btnOkOnPress: () {},
+                    btnOkOnPress: () {
+                      logout();
+                    },
                     btnCancelOnPress: () {},
                   ).show();
                 },

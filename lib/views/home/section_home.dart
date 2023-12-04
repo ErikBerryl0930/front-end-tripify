@@ -50,11 +50,8 @@ class _SectionHomeState extends State<SectionHome> {
       String? token = await TokenManager.getToken();
       http.Response response = await getUserData(token);
 
-      print('Response Body: ${response.body}');
-
       final user = UserData.fromJson(json.decode(response.body));
 
-      print('User Data: $user');
       _user = user;
       setState(() {});
     } catch (e) {
