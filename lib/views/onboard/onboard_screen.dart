@@ -79,7 +79,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                           contents[i].title,
                           style: GoogleFonts.poppins(
                               fontSize: 32 * width / 720,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.bold,
                               color: Colors.black),
                         ),
                         const SizedBox(

@@ -152,8 +152,8 @@ class _SectionHomeState extends State<SectionHome> {
                             width, // Lebar dari setiap item dalam ListView
                         decoration: BoxDecoration(
                           color: selectedIndex == index
-                              ? Colors.green.shade800
-                              : Colors.green,
+                              ? Colors.green.shade800.withOpacity(0.5)
+                              : Colors.green.withOpacity(0.5),
                           // Ganti dengan warna atau widget yang sesuai
                           borderRadius: BorderRadius.circular(
                               50.0), // Mengatur sudut menjadi bulat
@@ -161,7 +161,9 @@ class _SectionHomeState extends State<SectionHome> {
                         child: Center(
                           child: Text(
                             categories[index].categoryName,
-                            style: const TextStyle(color: Colors.black),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
                           ),
                         ),
                       ),

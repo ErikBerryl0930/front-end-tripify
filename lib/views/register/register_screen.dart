@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
-import '../../customs/button_auth.dart';
+import '../../customs/button_custom.dart';
 import '../../functions/navigation_services.dart';
 import '../../functions/function_post.dart';
 import '../login/login_screen.dart';
@@ -67,18 +67,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Text(
                 'TRIPIFY',
                 style: GoogleFonts.poppins(
-                    fontSize: 60 * width / 720,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 50 * width / 720,
+                    fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
               Text(
                 '- Explore Indonesia -',
                 style: GoogleFonts.dancingScript(
-                    fontSize: 38 * width / 720,
+                    fontSize: 35 * width / 720,
                     fontWeight: FontWeight.w400,
                     color: Colors.black),
               ),
-              SizedBox(height: 0.01 * height),
+              SizedBox(height: 0.005 * height),
               TextFormField(
                 controller: _usernameController,
                 keyboardType: TextInputType.text,
@@ -169,14 +169,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 0.01 * height),
+              SizedBox(height: 0.003 * height),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Already have an account? ',
                     style: GoogleFonts.poppins(
-                        fontSize: 25 * width / 720,
+                        fontSize: 24 * width / 720,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -191,15 +191,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Text(
                       'Login',
                       style: GoogleFonts.poppins(
-                          fontSize: 25 * width / 720,
+                          fontSize: 24 * width / 720,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFF0E3748)),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 0.01 * height),
-              ButtonAuth(
+              SizedBox(height: 0.003 * height),
+              ButtonCustom(
                   text: 'Register',
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
@@ -210,11 +210,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           _confPasswordController.text);
                     }
                   }),
-              SizedBox(height: 0.01 * height),
+              SizedBox(height: 0.005 * height),
             ]
                 .map((widget) => Padding(
                       padding: const EdgeInsets.only(
-                          top: 10.0, left: 15.0, right: 15.0),
+                          top: 8.0, left: 15.0, right: 15.0),
                       child: widget,
                     ))
                 .toList(),

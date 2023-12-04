@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:tripify_app/functions/token_manager.dart';
 
-import '../../customs/button_auth.dart';
+import '../../customs/button_custom.dart';
 import '../../functions/navigation_services.dart';
 import '../../functions/function_post.dart';
 import '../home/home_screen.dart';
@@ -67,18 +67,18 @@ class _LoginScreenState extends State<LoginScreen> {
               Text(
                 'TRIPIFY',
                 style: GoogleFonts.poppins(
-                    fontSize: 60 * width / 720,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 50 * width / 720,
+                    fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
               Text(
                 '- Explore Indonesia -',
                 style: GoogleFonts.dancingScript(
-                    fontSize: 38 * width / 720,
+                    fontSize: 35 * width / 720,
                     fontWeight: FontWeight.w400,
                     color: Colors.black),
               ),
-              SizedBox(height: 0.01 * height),
+              SizedBox(height: 0.005 * height),
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -124,14 +124,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 0.01 * height),
+              SizedBox(height: 0.003 * height),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Don’t have an account? ',
                     style: GoogleFonts.poppins(
-                        fontSize: 25 * width / 720,
+                        fontSize: 24 * width / 720,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -146,15 +146,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'Register',
                       style: GoogleFonts.poppins(
-                          fontSize: 25 * width / 720,
+                          fontSize: 24 * width / 720,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFF0E3748)),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 0.01 * height),
-              ButtonAuth(
+              SizedBox(height: 0.003 * height),
+              ButtonCustom(
                   text: 'Login',
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ]
                 .map((widget) => Padding(
                       padding: const EdgeInsets.only(
-                          top: 10.0, left: 15.0, right: 15.0),
+                          top: 8.0, left: 15.0, right: 15.0),
                       child: widget,
                     ))
                 .toList(),

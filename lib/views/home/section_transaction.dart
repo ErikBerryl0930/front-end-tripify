@@ -38,7 +38,16 @@ class _SectionTransactionState extends State<SectionTransaction> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: null,
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF004C5C).withOpacity(0.5),
+        title: Text(
+          'Transaction',
+          style: GoogleFonts.poppins(
+              fontSize: 30 * width / 720,
+              fontWeight: FontWeight.bold,
+              color: Colors.black),
+        ),
+      ),
       body: SafeArea(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

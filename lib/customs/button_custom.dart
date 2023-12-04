@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ButtonAuth extends StatelessWidget {
+class ButtonCustom extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  const ButtonAuth({super.key, required this.text, required this.onPressed});
+  const ButtonCustom({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

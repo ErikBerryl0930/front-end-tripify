@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
+import '../../customs/button_custom.dart';
 import '../../functions/function_post.dart';
 import '../../functions/navigation_services.dart';
 import '../../functions/token_manager.dart';
@@ -18,6 +20,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confNewPasswordController =
       TextEditingController();
+  bool _isObscureNewPassword = true;
+  bool _isObscureConfNewPassword = true;
 
   void _postChangePassword(String newPassword, String confNewPassword) async {
     try {
@@ -46,57 +50,108 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: null,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const SizedBox(height: 16.0),
-              TextFormField(
-                controller: _newPasswordController,
-                decoration: const InputDecoration(
-                  labelText: 'New Password',
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF004C5C).withOpacity(0.5),
+        title: Text(
+          'Setting',
+          style: GoogleFonts.poppins(
+              fontSize: 30 * width / 720,
+              fontWeight: FontWeight.bold,
+              color: Colors.black),
+        ),
+      ),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Do you want to change your password?',
+              style: GoogleFonts.poppins(
+                  fontSize: 28 * width / 720,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black),
+            ),
+            SizedBox(height: 0.01 * height),
+            TextFormField(
+              controller: _newPasswordController,
+              obscureText: _isObscureNewPassword,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                  icon: Icon(_isObscureNewPassword
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      // Ubah status ketika ikon mata ditekan
+                      _isObscureNewPassword = !_isObscureNewPassword;
+                    });
+                  },
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter your new password';
-                  }
-                  // Add custom validation logic as needed
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                controller: _confNewPasswordController,
-                decoration: const InputDecoration(
-                  labelText: 'Confirm New Password',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please confirm your new password';
-                  }
-                  if (value != _newPasswordController.text) {
-                    return 'Passwords do not match';
-                  }
-                  return null;
-                },
               ),
-              const SizedBox(height: 24.0),
-              ElevatedButton(
-                onPressed: () {
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter your new password';
+                }
+                return null;
+              },
+            ),
+            // const SizedBox(height: 16.0),
+            TextFormField(
+              controller: _confNewPasswordController,
+              obscureText: _isObscureConfNewPassword,
+              decoration: InputDecoration(
+                labelText: 'Confirm New Password',
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                  icon: Icon(_isObscureConfNewPassword
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      // Ubah status ketika ikon mata ditekan
+                      _isObscureConfNewPassword = !_isObscureConfNewPassword;
+                    });
+                  },
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please confirm your new password';
+                }
+                if (value != _newPasswordController.text) {
+                  return 'Passwords do not match';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 0.01 * height),
+            ButtonCustom(
+                text: 'Submit',
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _postChangePassword(_newPasswordController.text,
                         _confNewPasswordController.text);
                   }
-                },
-                child: const Text('Change Password'),
-              ),
-            ],
-          ),
+                }),
+          ]
+              .map((widget) => Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10.0, left: 15.0, right: 15.0),
+                    child: widget,
+                  ))
+              .toList(),
         ),
       ),
     );
