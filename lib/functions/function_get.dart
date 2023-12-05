@@ -93,7 +93,7 @@ Future<http.Response> getDestinationInfo(int id) async {
 // function get transactions
 Future<List<Transaction>> getTransactions(String? token) async {
   final response = await http.get(
-    Uri.parse('${ApiUrl.apiURL}/transactions'),
+    Uri.parse('${ApiUrl.apiURL}/transactions/'),
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
