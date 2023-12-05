@@ -32,3 +32,15 @@ Future<http.Response> postApiChangePassword(Map<String, String> data) async {
   );
   return response;
 }
+
+Future<http.Response> updateProfile(
+    Map<String, String> data, String? token) async {
+  var response = await http.patch(
+    Uri.parse('${ApiUrl.apiURL}/users/update'),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+  return response;
+}

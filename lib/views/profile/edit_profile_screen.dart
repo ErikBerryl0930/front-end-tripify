@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:tripify_app/functions/function_post.dart';
+import 'package:tripify_app/functions/navigation_services.dart';
+import 'package:tripify_app/views/home/section_profile.dart';
 
 import '../../customs/button_custom.dart';
 import '../../functions/function_get.dart';
@@ -47,6 +50,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
+  Future<void> _updateUserData(String fullname, String email, String address,
+      String country, String phone) async {
+    try {
+      Map<String, String> data = {
+        'fullname': fullname,
+        'email': email,
+        'address': address,
+        'country': country,
+        'phone': phone
+      };
+
+      String? token = await TokenManager.getToken();
+
+      http.Response response = await updateProfile(data, token);
+      if (response.statusCode == 200) {
+        await NavigationServices.pushReplacement(const SectionProfile());
+      }
+    } catch (e) {
+      print('Error $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -87,7 +112,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               controller: _usernameController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                labelText: 'Username',
+                labelText: 'Full Name',
                 prefixIcon: const Icon(Icons.person),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -169,7 +194,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               },
             ),
             SizedBox(height: 0.01 * height),
-            ButtonCustom(text: 'Submit', onPressed: () async {}),
+            ButtonCustom(
+                text: 'Submit',
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    _updateUserData(
+                        _usernameController.text,
+                        _emailController.text,
+                        _addressController.text,
+                        _countryController.text,
+                        _phoneController.text);
+                  }
+                }),
           ]
               .map((widget) => Padding(
                     padding: const EdgeInsets.only(
